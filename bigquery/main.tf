@@ -7,5 +7,5 @@ resource "google_project_service" "bq_api" {
 module "bq" {
   source     = "./bq"
   project_id = var.project_id
-  region_id = var.region_id
+  location = var.region_id
 }
