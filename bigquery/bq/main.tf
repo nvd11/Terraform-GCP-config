@@ -4,8 +4,10 @@ resource "google_project_service" "bq_api" {
   service = "bigquery.googleapis.com"
 }
 
-module "bq" {
-  source     = "./bq"
+# for tables and datasets
+module "datasets" {
+  source     = "./datasets.tf"
   project_id = var.project_id
   region_id = var.region_id
 }
+
