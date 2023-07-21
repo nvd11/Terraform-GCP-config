@@ -3,11 +3,11 @@ resource "google_bigquery_table" "table1" {
   table_id   = "table1"
   project    = var.project_id
   schema = {
-    fields {
+    fields = {
       name = "staffid"
       type = "STRING"
     }
-    fields {
+    fields = {
       name = "name"
       type = "STRING"
     }
@@ -19,11 +19,11 @@ resource "google_bigquery_table" "table2" {
   table_id   = "table2"
   project    = var.project_id
   schema = {
-    fields {
+    fields = {
       name = "staffid"
       type = "STRING"
     }
-    fields {
+    fields = {
       name = "name"
       type = "STRING"
     }
