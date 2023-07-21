@@ -9,3 +9,9 @@ module "artifact_registry" {
   arr_project_id = var.project_id
   region_id = var.region_id
 }
+
+module "bigquery" {
+  source     = "./bigquery"
+  arr_project_id = var.project_id
+  region_id = var.region_id
+}
