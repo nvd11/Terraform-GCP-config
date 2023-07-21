@@ -1,7 +1,5 @@
-# Enable BigQuery API
-resource "google_project_service" "bq_api" {
-  project = var.project_id
-  service = "bigquery.googleapis.com"
+data "local_file" "datasets" {
+  filename = "./datasets.tf"
 }
 
 # for tables and datasets
