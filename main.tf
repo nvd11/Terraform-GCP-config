@@ -1,5 +1,4 @@
 provider "google" {
-    credentials = file("/opt/apps/terraform/gcpkey.json")
     project = var.project_id
     region = var.region_id
     zone = var.zone_id
