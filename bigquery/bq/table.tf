@@ -2,7 +2,7 @@ resource "google_bigquery_table" "table1" {
   dataset_id = google_bigquery_dataset.dataset1.dataset_id
   table_id   = "table1"
   project    = var.project_id
-  schema     = jsonencode({
+  schema     = jsondecode(jsonencode({
     fields = [
       {
         name = "staffid"
@@ -13,14 +13,14 @@ resource "google_bigquery_table" "table1" {
         type = "STRING"
       }
     ]
-  })
+  }))
 }
 
 resource "google_bigquery_table" "table2" {
   dataset_id = google_bigquery_dataset.dataset1.dataset_id
   table_id   = "table2"
   project    = var.project_id
-  schema     = jsonencode({
+  schema     = jsondecode(jsonencode({
     fields = [
       {
         name = "staffid"
@@ -31,5 +31,5 @@ resource "google_bigquery_table" "table2" {
         type = "STRING"
       }
     ]
-  })
+  }))
 }
