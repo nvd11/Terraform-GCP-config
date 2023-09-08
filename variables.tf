@@ -1,17 +1,17 @@
 variable "project_id" {
   description = "The ID of the project"
-  default     = "divine-cortex-391518" 
+  default     = "jason-hsbc" 
   type        = string
 }
 
 variable "region_id" {
   description = "The region of the project"
-  default     = "asia-east1" 
+  default     = "europe-west2" 
   type        = string
 }
 
 variable "zone_id" {
   description = "The zone id of the project"
-  default     = "asia-east1-a" 
+  default     = "europe-west2-a" 
   type        = string
 }
