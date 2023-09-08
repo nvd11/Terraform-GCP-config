@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket  = "hsbc"
+    bucket  = "jason-hsbc"
     prefix  = "terraform/state"
   }
 }
