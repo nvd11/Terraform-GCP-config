@@ -15,3 +15,9 @@ module "bigquery" {
   project_id = var.project_id
   region_id = var.region_id
 }
+
+module "pubsub" {
+  source     = "./pubsub"
+  project_id = var.project_id
+  region_id = var.region_id
+}
