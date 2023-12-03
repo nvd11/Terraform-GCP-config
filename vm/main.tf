@@ -1,5 +1,5 @@
-resource "google_compute_instance" "my_vm" {
-  name         = "my-vm"
+resource "google_compute_instance" "k8s-master" {
+  name         = "k8s-master"
   project  = var.project_id
   zone = var.zone_id
   
@@ -27,6 +27,7 @@ resource "google_compute_instance" "my_vm" {
   # to reduce cost
   scheduling {
     provisioning_model = "SPOT"
+    preemptible         = true
   }
 
 }
