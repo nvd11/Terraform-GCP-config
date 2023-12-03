@@ -13,7 +13,7 @@ resource "google_compute_subnetwork" "tf-subnet" {
   region        = var.region_id
   purpose       = "None"
   role          = "ACTIVE"
-  network       = google_compute_network.tf-vpc.id
+  network       = google_compute_network.tf-vpc.name
 }
 
 # Create firewall rules
@@ -33,6 +33,44 @@ resource "google_compute_firewall" "tf-firewall" {
   # If no targetTags are specified, the firewall rule applies to all instances on the specified network.
   # target_tags   = [google_compute_subnetwork.tf-subnet.name] 
 }
+
+
+
+
+
+## Create Cloud Router
+
+resource "google_compute_router" "tf-router" {
+  project = var.project_id
+  name    = "tf-nat-router"
+  network = google_compute_network.tf-vpc.name
+  region  = var.region_id
+}
+
+## Create Nat Gateway
+
+resource "google_compute_router_nat" "tf-cloud-nat" {
+  name                               = "tf-cloud-nat"
+  router                             = google_compute_router.router.name
+  region                             = var.region_id
+  nat_ip_allocate_option             = "AUTO_ONLY"
+  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+
+  log_config {
+    enable = true
+    filter = "ERRORS_ONLY"
+  }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 output "tf_vpc_name" {
