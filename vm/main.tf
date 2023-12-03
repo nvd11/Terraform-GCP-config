@@ -4,7 +4,7 @@ resource "google_compute_instance" "k8s-master" {
   zone = var.zone_id
   
 
-  machine_type = "n2d-highmen-2"
+  machine_type = "n2d-highmem-2"
   
   boot_disk {
     initialize_params {

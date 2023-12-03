@@ -12,6 +12,6 @@ variable "region_id" {
 
 variable "zone_id" {
   description = "The zone id of the project"
-  default     = "europe-west2-a" 
+  default     = "europe-west2-c" 
   type        = string
 }
