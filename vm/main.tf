@@ -3,7 +3,7 @@ resource "google_compute_instance" "k8s-master" {
   project  = var.project_id
   zone = var.zone_id
   
-
+  allow_stopping_for_update = true
   machine_type = "n2d-highmem-2" # 2cpu 16GB
   
   boot_disk {
@@ -38,7 +38,7 @@ resource "google_compute_instance" "k8s-node1" {
   project  = var.project_id
   zone = var.zone_id
   
-
+  allow_stopping_for_update = true
   machine_type = "n2d-highmem-4" # 4cpu 32GB
   
   boot_disk {
@@ -74,8 +74,8 @@ resource "google_compute_instance" "k8s-node2" {
   project  = var.project_id
   zone = var.zone_id
   
-
-    machine_type = "n2d-highmem-4" # 4cpu 32GB
+  allow_stopping_for_update = true
+  machine_type = "n2d-highmem-4" # 4cpu 32GB
   
   boot_disk {
     initialize_params {
