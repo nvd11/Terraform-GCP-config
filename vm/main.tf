@@ -14,7 +14,7 @@ resource "google_compute_instance" "k8s-master" {
   }
   
   network_interface {
-    network = "default"
+    network = "default-vpc"
     subnetwork = "subnet-west2"
   }
 
