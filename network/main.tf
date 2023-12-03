@@ -33,3 +33,12 @@ resource "google_compute_firewall" "tf-firewall" {
   # If no targetTags are specified, the firewall rule applies to all instances on the specified network.
   # target_tags   = [google_compute_subnetwork.tf-subnet.name] 
 }
+
+
+output "tf_vpc_name" {
+  value = google_compute_network.tf-vpc.name
+}
+
+output "tf_subnet_name" {
+  value = google_compute_network.tf-subnet.name
+}
