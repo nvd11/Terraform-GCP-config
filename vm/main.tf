@@ -14,8 +14,8 @@ resource "google_compute_instance" "k8s-master" {
   }
   
   network_interface {
-    network = "default-vpc"
-    subnetwork = "subnet-west2"
+    network = google_compute_network.tf-vpc.name
+    subnetwork = google_compute_network.tf-subnet.name
   }
 
   service_account {
@@ -49,8 +49,8 @@ resource "google_compute_instance" "k8s-node1" {
   }
   
   network_interface {
-    network = "default-vpc"
-    subnetwork = "subnet-west2"
+    network = google_compute_network.tf-vpc.name
+    subnetwork = google_compute_network.tf-subnet.name
   }
 
   service_account {
@@ -85,8 +85,8 @@ resource "google_compute_instance" "k8s-node2" {
   }
   
   network_interface {
-    network = "default-vpc"
-    subnetwork = "subnet-west2"
+    network = google_compute_network.tf-vpc.name
+    subnetwork = google_compute_network.tf-subnet.name
   }
 
   service_account {
