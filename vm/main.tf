@@ -22,4 +22,11 @@ resource "google_compute_instance" "my_vm" {
     email  = "vm-common@jason-hsbc.iam.gserviceaccount.com"
     scopes = ["https://www.googleapis.com/auth/cloud-platform"]
   }
+
+  # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance#provisioning_model
+  # to reduce cost
+  scheduling {
+    provisioning_model = "SPOT"
+  }
+
 }
