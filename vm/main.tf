@@ -1,7 +1,7 @@
 resource "google_compute_instance" "my_vm" {
   name         = "my-vm"
   project  = var.project_id
-  region = var.region_id
+  zone = var.zone_id
   
 
   machine_type = "n2d-highmen-2"
@@ -13,10 +13,6 @@ resource "google_compute_instance" "my_vm" {
     }
   }
   
-  availability_policy {
-    preemptible = true
-  }
-
   network_interface {
     network = "default"
     subnetwork = "subnet-west2"
