@@ -40,5 +40,5 @@ output "tf_vpc_name" {
 }
 
 output "tf_subnet_name" {
-  value = google_compute_network.tf-subnet.name
+  value = google_compute_subnetwork.tf-subnet.name
 }
