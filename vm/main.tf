@@ -25,7 +25,8 @@ resource "google_compute_instance" "k8s-master" {
 
   # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance#provisioning_model
   # to reduce cost
-  scheduling {
+  scheduling { 
+    automatic_restart = false # Scheduling must have preemptible be false when AutomaticRestart is true.
     provisioning_model = "SPOT"
     preemptible         = true
   }
