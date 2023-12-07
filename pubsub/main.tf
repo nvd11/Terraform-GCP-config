@@ -3,7 +3,6 @@ resource "google_pubsub_topic" "topic_a" {
   project  = var.project_id
 }
 
-
 # subscriptions
 resource "google_pubsub_subscription" "subscription_a1" {
   name     = "SubscriptionA1"
