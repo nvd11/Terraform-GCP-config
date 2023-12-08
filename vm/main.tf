@@ -33,8 +33,8 @@ resource "google_compute_instance" "k8s-master" {
 
 }
 
-resource "google_compute_instance" "k8s-node1" {
-  name         = "k8s-node1"
+resource "google_compute_instance" "k8s-node0" {
+  name         = "k8s-node0"
   project  = var.project_id
   zone = var.zone_id
   
@@ -69,8 +69,8 @@ resource "google_compute_instance" "k8s-node1" {
 }
 
 
-resource "google_compute_instance" "k8s-node2" {
-  name         = "k8s-node2"
+resource "google_compute_instance" "k8s-node1" {
+  name         = "k8s-node1"
   project  = var.project_id
   zone = var.zone_id
   
