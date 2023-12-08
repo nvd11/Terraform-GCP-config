@@ -14,8 +14,8 @@ resource "google_compute_instance" "k8s-master" {
   }
   
   network_interface {
-    network =  var.vpc
-    subnetwork =  var.subnet
+    network =  var.vpc0
+    subnetwork =  var.vpc0_subnet0
   }
 
   service_account {
@@ -49,8 +49,8 @@ resource "google_compute_instance" "k8s-node1" {
   }
   
   network_interface {
-    network =  var.vpc
-    subnetwork =  var.subnet
+    network =  var.vpc0
+    subnetwork =  var.vpc0_subnet0
   }
 
   service_account {
@@ -85,8 +85,8 @@ resource "google_compute_instance" "k8s-node2" {
   }
   
   network_interface {
-    network =  var.vpc
-    subnetwork =  var.subnet
+    network =  var.vpc0
+    subnetwork =  var.vpc0_subnet0
   }
 
   service_account {

@@ -1,36 +1,36 @@
 
 # create a vpc
-resource "google_compute_network" "tf-vpc" {
+resource "google_compute_network" "tf-vpc0" {
   project = var.project_id
-  name                    = "tf-vpc"
+  name                    = "tf-vpc0"
   auto_create_subnetworks = false
 }
 
 # create a subnet
-resource "google_compute_subnetwork" "tf-subnet" {
-  name          = "tf-vpc-subnet"
+resource "google_compute_subnetwork" "tf-vpc0-subnet0" {
+  name          = "tf-vpc0-subnet0"
   ip_cidr_range = "192.168.0.0/24" # 192.168.0.1 ~ 192.168.0.255
   region        = var.region_id
   purpose       = "None"
   role          = "ACTIVE"
-  network       = google_compute_network.tf-vpc.name
+  network       = google_compute_network.tf-vpc0.name
 }
 
 # create a subnet
-resource "google_compute_subnetwork" "tf-subnet" {
-  name          = "tf-vpc-subnet2"
+resource "google_compute_subnetwork" "tf-vpc0-subnet1" {
+  name          = "tf-vpc0-subnet1"
   ip_cidr_range = "192.168.1.0/24" # 192.168.0.1 ~ 192.168.0.255
   region        = var.region_id
   purpose       = "None"
   role          = "ACTIVE"
-  network       = google_compute_network.tf-vpc.name
+  network       = google_compute_network.tf-vpc0.name
 }
 
 # Create firewall rules
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall
-resource "google_compute_firewall" "tf-firewall" {
-  name    = "tf-firewall"
-  network = google_compute_network.tf-vpc.name
+resource "google_compute_firewall" "tf-vpc0-firewall" {
+  name    = "tf-vpc0-firewall"
+  network = google_compute_network.tf-vpc0.name
 
   allow {
     protocol = "tcp"
@@ -47,18 +47,18 @@ resource "google_compute_firewall" "tf-firewall" {
 
 ## Create Cloud Router
 
-resource "google_compute_router" "tf-router" {
+resource "google_compute_router" "tf-vpc0-nat-router" {
   project = var.project_id
-  name    = "tf-vpc-nat-router"
-  network = google_compute_network.tf-vpc.name
+  name    = "tf-vpc0-nat-router"
+  network = google_compute_network.tf-vpc0.name
   region  = var.region_id
 }
 
 ## Create Nat Gateway
 
-resource "google_compute_router_nat" "tf-cloud-nat" {
-  name                               = "tf-vpc-cloud-nat"
-  router                             = google_compute_router.tf-router.name
+resource "google_compute_router_nat" "tf-vpc0-cloud-nat" {
+  name                               = "tf-vpc0-cloud-nat"
+  router                             = google_compute_router.tf-vpc0-nat-router.name
   region                             = var.region_id
   nat_ip_allocate_option             = "AUTO_ONLY"
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
@@ -74,32 +74,33 @@ resource "google_compute_router_nat" "tf-cloud-nat" {
 ## ======================================================================================================================================================
 
 # create a vpc
-resource "google_compute_network" "tf-vpc2" {
+resource "google_compute_network" "tf-vpc1" {
   project = var.project_id
-  name                    = "tf-vpc2"
+  name                    = "tf-vpc1"
   auto_create_subnetworks = false
 }
 
 # create a subnet
-resource "google_compute_subnetwork" "tf-subnet" {
-  name          = "tf-vpc2-subnet"
+resource "google_compute_subnetwork" "tf-vpc1-subnet0" {
+  name          = "tf-vpc1-subnet0"
   ip_cidr_range = "192.168.0.0/24"
   region        = var.region_id
   purpose       = "None"
   role          = "ACTIVE"
-  network       = google_compute_network.tf-vpc.name
+  network       = google_compute_network.tf-vpc1.name
 }
 
 
 
 
-
-
-
-output "tf_vpc_name" {
-  value = google_compute_network.tf-vpc.name
+output "tf_vpc0_name" {
+  value = google_compute_network.tf-vpc0.name
 }
 
-output "tf_subnet_name" {
-  value = google_compute_subnetwork.tf-subnet.name
+output "tf_vpc0_subnet0_name" {
+  value = google_compute_subnetwork.tf-vpc0-subnet0.name
+}
+
+output "tf_vpc0_subnet1_name" {
+  value = google_compute_subnetwork.tf-vpc0-subnet1.name
 }
