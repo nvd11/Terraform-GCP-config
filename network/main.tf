@@ -8,8 +8,18 @@ resource "google_compute_network" "tf-vpc" {
 
 # create a subnet
 resource "google_compute_subnetwork" "tf-subnet" {
-  name          = "tf-subnet"
-  ip_cidr_range = "192.168.0.0/24"
+  name          = "tf-vpc-subnet"
+  ip_cidr_range = "192.168.0.0/24" # 192.168.0.1 ~ 192.168.0.255
+  region        = var.region_id
+  purpose       = "None"
+  role          = "ACTIVE"
+  network       = google_compute_network.tf-vpc.name
+}
+
+# create a subnet
+resource "google_compute_subnetwork" "tf-subnet" {
+  name          = "tf-vpc-subnet2"
+  ip_cidr_range = "192.168.1.0/24" # 192.168.0.1 ~ 192.168.0.255
   region        = var.region_id
   purpose       = "None"
   role          = "ACTIVE"
@@ -35,14 +45,11 @@ resource "google_compute_firewall" "tf-firewall" {
 }
 
 
-
-
-
 ## Create Cloud Router
 
 resource "google_compute_router" "tf-router" {
   project = var.project_id
-  name    = "tf-nat-router"
+  name    = "tf-vpc-nat-router"
   network = google_compute_network.tf-vpc.name
   region  = var.region_id
 }
@@ -50,7 +57,7 @@ resource "google_compute_router" "tf-router" {
 ## Create Nat Gateway
 
 resource "google_compute_router_nat" "tf-cloud-nat" {
-  name                               = "tf-cloud-nat"
+  name                               = "tf-vpc-cloud-nat"
   router                             = google_compute_router.tf-router.name
   region                             = var.region_id
   nat_ip_allocate_option             = "AUTO_ONLY"
@@ -63,9 +70,25 @@ resource "google_compute_router_nat" "tf-cloud-nat" {
 }
 
 
+# tf-vpc2
+## ======================================================================================================================================================
 
+# create a vpc
+resource "google_compute_network" "tf-vpc2" {
+  project = var.project_id
+  name                    = "tf-vpc2"
+  auto_create_subnetworks = false
+}
 
-
+# create a subnet
+resource "google_compute_subnetwork" "tf-subnet" {
+  name          = "tf-vpc2-subnet"
+  ip_cidr_range = "192.168.0.0/24"
+  region        = var.region_id
+  purpose       = "None"
+  role          = "ACTIVE"
+  network       = google_compute_network.tf-vpc.name
+}
 
 
 
