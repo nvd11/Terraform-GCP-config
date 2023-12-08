@@ -40,6 +40,7 @@ module "vm" {
   project_id = var.project_id
   region_id = var.region_id
   zone_id = var.zone_id
-  vpc = module.network.tf_vpc_name
-  subnet = module.network.tf_subnet_name
+  vpc0 = module.network.tf_vpc0_name
+  vpc0_subnet0 = module.network.tf_vpc0_subnet0_name
+  vpc0_subnet1 = module.network.tf_vpc0_subnet1_name
 }
