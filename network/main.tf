@@ -92,7 +92,7 @@ resource "google_compute_network" "tf-vpc1" {
 # create a subnet
 resource "google_compute_subnetwork" "tf-vpc1-subnet0" {
   name                     = "tf-vpc1-subnet0"
-  ip_cidr_range            = "192.168.0.0/24"
+  ip_cidr_range            = "192.168.8.0/24"
   region                   = var.region_id
   purpose                  = "PRIVATE_NAT"
   role                     = "ACTIVE"
@@ -148,7 +148,13 @@ resource "google_compute_firewall" "tf-vpc1-firewall" {
 #  }
 #}
 
+# ==========================================================================================================================================
 
+
+
+
+# output
+# ==========================================================================================================================================
 
 output "tf_vpc0_name" {
   value = google_compute_network.tf-vpc0.name
@@ -160,4 +166,12 @@ output "tf_vpc0_subnet0_name" {
 
 output "tf_vpc0_subnet1_name" {
   value = google_compute_subnetwork.tf-vpc0-subnet1.name
+}
+
+output "tf_vpc1_name" {
+  value = google_compute_network.tf-vpc1.name
+}
+
+output "tf_vpc1_subnet0_name" {
+  value = google_compute_subnetwork.tf-vpc1-subnet0.name
 }
