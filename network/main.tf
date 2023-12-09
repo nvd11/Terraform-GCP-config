@@ -14,9 +14,13 @@ resource "google_compute_subnetwork" "tf-vpc0-subnet0" {
   name                     = "tf-vpc0-subnet0"
   ip_cidr_range            = "192.168.0.0/24" # 192.168.0.1 ~ 192.168.0.255
   region                   = var.region_id
-  purpose                  = "PRIVATE"
+  # only PRIVATE could allow vm creation,  the PRIVATE item is displayed as "None" in GCP console subnet creation page
+  # but we cannot set purpose to "None",  if we did , the subnet will still created as purpose = PRIVATE , and next terraform plan/apply will try to recreate the subnet!
+  # as it detect changes for "PRIVATE" -> "NONE"
+  # gcloud compute networks subnets describe tf-vpc0-subnet0 --region=europe-west2
+  purpose                  = "PRIVATE" 
   role                     = "ACTIVE"
-  private_ip_google_access = "true"
+  private_ip_google_access = "true" # to eanble the vm to access gcp products via internal network but not internet, faster and less cost!
   network                  = google_compute_network.tf-vpc0.name
 }
 
