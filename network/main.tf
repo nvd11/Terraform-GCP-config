@@ -94,7 +94,7 @@ resource "google_compute_subnetwork" "tf-vpc1-subnet0" {
   name                     = "tf-vpc1-subnet0"
   ip_cidr_range            = "192.168.8.0/24"
   region                   = var.region_id
-  purpose                  = "PRIVATE_NAT"
+  purpose                  = "PRIVATE_SERVICE_CONNECT"
   role                     = "ACTIVE"
   # 
   private_ip_google_access = "true"      
