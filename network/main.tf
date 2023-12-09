@@ -97,7 +97,7 @@ resource "google_compute_subnetwork" "tf-vpc1-subnet0" {
   purpose                  = "PRIVATE_SERVICE_CONNECT"
   role                     = "ACTIVE"
   # 
-  private_ip_google_access = "true"      
+  # private_ip_google_access = "true"      
   network                  = google_compute_network.tf-vpc1.name
 }
 
