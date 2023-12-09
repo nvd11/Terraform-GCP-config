@@ -36,6 +36,10 @@ resource "google_compute_firewall" "tf-vpc0-firewall" {
   network = google_compute_network.tf-vpc0.name
 
   allow {
+    protocol = "icmp"
+  }
+
+  allow {
     protocol = "tcp"
     ports    = ["8080", "80", "443", "22"]
   }
@@ -88,7 +92,7 @@ resource "google_compute_subnetwork" "tf-vpc1-subnet0" {
   name          = "tf-vpc1-subnet0"
   ip_cidr_range = "192.168.0.0/24"
   region        = var.region_id
-  purpose       = "PRIVATE_RFC_1918 "
+  purpose       = "PRIVATE_RFC_1918"
   role          = "ACTIVE"
   network       = google_compute_network.tf-vpc1.name
 }
