@@ -28,12 +28,12 @@ module "bucket" {
   region_id = var.region_id
 }
 
-#module "network" {
-#  source     = "./network"
-#  project_id = var.project_id
-#  region_id = var.region_id
-#  zone_id = var.zone_id
-#}
+module "network" {
+  source     = "./network"
+  project_id = var.project_id
+  region_id = var.region_id
+  zone_id = var.zone_id
+}
 
 #module "vm" {
 #  source     = "./vm"
