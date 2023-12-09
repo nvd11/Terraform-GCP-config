@@ -94,10 +94,10 @@ resource "google_compute_subnetwork" "tf-vpc1-subnet0" {
   name                     = "tf-vpc1-subnet0"
   ip_cidr_range            = "192.168.8.0/24"
   region                   = var.region_id
-  purpose                  = "REGIONAL_MANAGED_PROXY"
+  purpose                  = "PRIVATE"
   role                     = "ACTIVE"
   # 
-  # private_ip_google_access = "true"      
+  private_ip_google_access = "true"      
   network                  = google_compute_network.tf-vpc1.name
 }
 
