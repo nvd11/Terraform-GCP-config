@@ -43,4 +43,6 @@ module "vm" {
   vpc0 = module.network.tf_vpc0_name
   vpc0_subnet0 = module.network.tf_vpc0_subnet0_name
   vpc0_subnet1 = module.network.tf_vpc0_subnet1_name
+  vpc1 = module.network.tf_vpc1_name
+  vpc1_subnet0 = module.network.tf_vpc1_subnet0_name
 }
