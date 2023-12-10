@@ -264,7 +264,7 @@ resource "google_compute_instance" "tf-vpc1-subnet0-vm0" {
 
 # this vm is under tf-vpc1 subnet 0, and tf-vpc0 subnet0  , dual ips , for vpc nat-getaway ip forwarding testing
 resource "google_compute_instance" "tf-vpc0-subnet0-vpc1-subnet0-vm0" {
-  name         = "tf-vpc1-subnet0-vm0"
+  name         = "tf-vpc0-subnet0-vpc1-subnet0-vm0"
   project  = var.project_id
   zone = var.zone_id
   
