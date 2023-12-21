@@ -19,14 +19,15 @@ resource "google_compute_instance_from_template" "tf-vpc0-subnet0-vm21" {
   source_instance_template = google_compute_instance_template.vm-template-vpc0-subnet0-e2-small-tomcat.self_link_unique
 }
 
-resource "google_compute_instance_from_template" "tf-vpc0-subnet0-vm22" {
-  name         = "tf-vpc0-subnet0-vm22"
+# The custom properties of vm_from_template could overwrite the pre-defined properties in instance template
+resource "google_compute_instance_from_template" "tf-vpc0-subnet1-vm1" {
+  name         = "tf-vpc0-subnet1-vm1"
   project      = var.project_id
   zone         = var.zone_id
 
   network_interface {
     network =  "tf-vpc0"
-    subnetwork =  "tf-vpc0-subnet1"
+    subnetwork =  "tf-vpc0-subnet1"  # here the subnet property will overwrite the setting in instance template
   }
   # from a instance template
   source_instance_template = google_compute_instance_template.vm-template-vpc0-subnet0-e2-small-tomcat.self_link_unique
