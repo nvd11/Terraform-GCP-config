@@ -118,6 +118,7 @@ resource "google_compute_instance" "tf-vpc0-subnet0-vm0" {
   machine_type = "e2-small" # 0.5-2 vCPU (1 shared core) , 2GB Mem
   
   boot_disk {
+    auto_delete = false # as there's an instance image created based on this disk
     initialize_params {
       image = "debian-cloud/debian-11"
       size  = 20
@@ -305,4 +306,17 @@ resource "google_compute_instance" "tf-vpc0-subnet0-vpc1-subnet0-vm0" {
 
   can_ip_forward = true
 
+}
+
+
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance_from_template
+# this vm is created based on an instance template
+resource "google_compute_instance_from_template" "tf-vpc1-subnet0-vm20" {
+  name         = "tf-vpc1-subnet0-vm20"
+  project      = var.project_id
+  zone         = var.zone_id
+  allow_stopping_for_update = true
+
+  # from a instance template
+  source_instance_template = "e2-small-tomcat"
 }
