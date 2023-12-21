@@ -9,3 +9,12 @@ resource "google_compute_instance_from_template" "tf-vpc0-subnet0-vm20" {
   # from a instance template
   source_instance_template = "https://www.googleapis.com/compute/v1/projects/jason-hsbc/global/instanceTemplates/e2-small-tomcat"
 }
+
+resource "google_compute_instance_from_template" "tf-vpc0-subnet0-vm21" {
+  name         = "tf-vpc0-subnet0-vm21"
+  project      = var.project_id
+  zone         = var.zone_id
+
+  # from a instance template
+  source_instance_template = google_compute_instance_template.vm-template-vpc0-subnet0-e2-small-tomcat.self_link_unique
+}
