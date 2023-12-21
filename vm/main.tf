@@ -118,6 +118,7 @@ resource "google_compute_instance" "tf-vpc0-subnet0-vm0" {
   machine_type = "e2-small" # 0.5-2 vCPU (1 shared core) , 2GB Mem
   
   boot_disk {
+    auto_delete = false # as there's an instance image created based on this disk
     initialize_params {
       image = "debian-cloud/debian-11"
       size  = 20
@@ -280,8 +281,7 @@ resource "google_compute_instance" "tf-vpc0-subnet0-vpc1-subnet0-vm0" {
   
   network_interface {
     network =  var.vpc0
-    subnetwork =  var.vpc0_subnet0
-    
+    subnetwork =  var.vpc0_subnet0    
   }
 
   network_interface {
@@ -306,3 +306,4 @@ resource "google_compute_instance" "tf-vpc0-subnet0-vpc1-subnet0-vm0" {
   can_ip_forward = true
 
 }
+
