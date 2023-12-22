@@ -38,7 +38,7 @@ EOF
 # otherwise :  Error: googleapi: Error 400: The field specified for time partitioning can only be of type TIMESTAMP, DATE or DATETIME. The type found is: STRING., invalid
 resource "google_bigquery_table" "sales_details_p" {
   dataset_id = google_bigquery_dataset.dataset1.dataset_id
-  table_id   = "sales_details"
+  table_id   = "sales_details_p"
   project    = var.project_id
 
   schema = <<EOF
