@@ -9,3 +9,9 @@ module "bq" {
   project_id = var.project_id
   location = var.region_id
 }
+
+module "bq_ds2" {
+  source     = "./bq_ds2"
+  project_id = var.project_id
+  location = var.region_id
+}
