@@ -47,7 +47,7 @@ resource "google_compute_firewall" "tf-vpc0-firewall" {
 
   allow {
     protocol = "tcp"
-    ports    = ["8080", "80", "443", "22"]
+    ports    = ["8080", "80", "443", "22", "3389"]
   }
 
   source_ranges = ["0.0.0.0/0"] # allow any external part access
