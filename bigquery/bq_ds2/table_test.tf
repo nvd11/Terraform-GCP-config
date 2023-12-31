@@ -41,7 +41,7 @@ resource "google_bigquery_table" "sales_details_p2" {
   dataset_id = google_bigquery_dataset.dataset1.dataset_id
   table_id   = "sales_details_p2"
   project    = var.project_id
-
+  deletion_protection = false
   schema = <<EOF
 [
     {
@@ -75,7 +75,7 @@ EOF
     type                     = "DAY"  # partitioning by Day
     field                    = "Order_Date"  # Use it as the partition field
     expiration_ms            = 2592000000  # set the expired days to 30
-    require_partition_filter = true  # must use partition filter
+    # require_partition_filter = true  # must use partition filter
   }
 }
 

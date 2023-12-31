@@ -40,7 +40,7 @@ resource "google_bigquery_table" "sales_details_p" {
   dataset_id = google_bigquery_dataset.dataset1.dataset_id
   table_id   = "sales_details_p"
   project    = var.project_id
-
+  deletion_protection = false # can be deleted by terraform
   schema = <<EOF
 [
     {
@@ -73,7 +73,7 @@ EOF
  time_partitioning {
     type                     = "DAY"  # partitioning by Day
     field                    = "Order_Date"  # Use it as the partition field
-    expiration_ms            = 2592000000  # set the expired days to 30
-    require_partition_filter = true  # must use partition filter
+    //expiration_ms            = 2592000000  # set the expired days to 30
+    //require_partition_filter = true  # must use partition filter
   }
 }
