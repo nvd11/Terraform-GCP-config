@@ -4,12 +4,12 @@ resource "google_compute_instance" "tf-vpc0-subnet0-main-server" {
   zone = var.zone_id
   
   allow_stopping_for_update = true
-  machine_type = "n2d-standard-4" # 4cpu 32GB
+  machine_type = "n2d-standard-4" # 4cpu 16GB
   
   boot_disk {
     initialize_params {
       image = "debian-cloud/debian-11"
-      size  = 20
+      size  = 60
     }
   }
   

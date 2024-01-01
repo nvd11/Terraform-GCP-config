@@ -30,3 +30,5 @@ resource "google_compute_instance_template" "vm-template-vpc0-subnet0-e2-small-t
 
   can_ip_forward = false
 }
+
+
