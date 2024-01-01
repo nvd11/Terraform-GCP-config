@@ -22,8 +22,6 @@ resource "google_compute_instance" "tf-vpc0-subnet0-main-server" {
     }
   }
 
-
-
   service_account {
     email  = "vm-common@jason-hsbc.iam.gserviceaccount.com"
     scopes = ["https://www.googleapis.com/auth/cloud-platform"]
@@ -150,7 +148,6 @@ resource "google_compute_instance" "tf-vpc0-subnet1-vm0" {
     preemptible         = true
     instance_termination_action = "STOP"
   }
-
 }
 
 # this vm is under tf-vpc1 subnet 0, and tf-vpc0 subnet0  , dual ips , for vpc nat-getaway ip forwarding testing
