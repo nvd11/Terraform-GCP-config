@@ -4,12 +4,12 @@ resource "google_compute_instance" "tf-vpc0-subnet0-main-server" {
   zone = var.zone_id
   
   allow_stopping_for_update = true
-  machine_type = "n2d-standard-4" # 4cpu 32GB
+  machine_type = "n2d-standard-4" # 4cpu 16GB
   
   boot_disk {
     initialize_params {
       image = "debian-cloud/debian-11"
-      size  = 20
+      size  = 60
     }
   }
   
@@ -21,8 +21,6 @@ resource "google_compute_instance" "tf-vpc0-subnet0-main-server" {
       nat_ip = "34.39.2.90"
     }
   }
-
-
 
   service_account {
     email  = "vm-common@jason-hsbc.iam.gserviceaccount.com"
@@ -150,7 +148,6 @@ resource "google_compute_instance" "tf-vpc0-subnet1-vm0" {
     preemptible         = true
     instance_termination_action = "STOP"
   }
-
 }
 
 # this vm is under tf-vpc1 subnet 0, and tf-vpc0 subnet0  , dual ips , for vpc nat-getaway ip forwarding testing

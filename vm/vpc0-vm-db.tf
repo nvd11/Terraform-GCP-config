@@ -1,20 +1,25 @@
-resource "google_compute_instance_template" "vm-template-vpc0-subnet0-e2-small-tomcat" {
-  name         = "vm-template-vpc0-subnet0-e2-small-tomcat"
-  machine_type = "e2-small"
-
-  disk {
-    source_image = "https://compute.googleapis.com/compute/v1/projects/jason-hsbc/global/images/e2-small-tomcat-image"
-    auto_delete  = true
-    disk_size_gb = 20
-    boot         = true
+# this vm is under tf-vpc0 subnet 0, for vpc connectivity testing
+resource "google_compute_instance" "tf-vpc0-subnet0-mysql0" {
+  name         = "tf-vpc0-subnet0-mysql0"
+  project  = var.project_id
+  zone = var.zone_id
+  
+  allow_stopping_for_update = true
+  machine_type = "e2-standard-2" # 2 vcpu 8GB Mem
+  
+  boot_disk {
+    initialize_params {
+      image = "ubuntu-os-cloud/ubuntu-minimal-2004-focal-v20231213a"
+      size  = 20
+    }
   }
-
+  
   network_interface {
     network =  var.vpc0
-    subnetwork =  var.vpc0_subnet0    
+    subnetwork =  var.vpc0_subnet0
   }
 
- service_account {
+  service_account {
     email  = "vm-common@jason-hsbc.iam.gserviceaccount.com"
     scopes = ["https://www.googleapis.com/auth/cloud-platform"]
   }
@@ -28,7 +33,4 @@ resource "google_compute_instance_template" "vm-template-vpc0-subnet0-e2-small-t
     instance_termination_action = "STOP"
   }
 
-  can_ip_forward = false
 }
-
-
