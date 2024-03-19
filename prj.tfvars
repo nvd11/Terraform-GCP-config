@@ -1,3 +1,5 @@
 project_id = "jason-hsbc"
 region_id = "europe-west2"
 zone_id = "europe-west2-c"
+gsc_sa = "service-912156613264@gs-project-accounts.iam.gserviceaccount.com"
+sts_sa = "project-912156613264@storage-transfer-service.iam.gserviceaccount.com"
