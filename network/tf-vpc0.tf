@@ -47,8 +47,16 @@ resource "google_compute_firewall" "tf-vpc0-firewall" {
 
   allow {
     protocol = "tcp"
-    ports    = ["8080-8400", "8080", "80", "443", "22", "3389","3306","8201"]
+    ports    = ["1-32767"]
   }
+
+  # it's needed for k8s nodeport...
+  # otherwise -> NodePort only responding on node where pod is running
+  allow { 
+    protocol = "udp" 
+    ports    = ["1-32767"]
+  }
+
 
   source_ranges = ["0.0.0.0/0"] # allow any external part access
 
