@@ -90,3 +90,14 @@ resource "google_compute_instance_from_template" "k8s-node2" {
   # from a instance template
   source_instance_template = "https://www.googleapis.com/compute/v1/projects/jason-hsbc/global/instanceTemplates/vm-template-k8s-nodes"
 }
+
+
+resource "google_compute_instance_from_template" "k8s-node3" {
+  name         = "k8s-node3"
+  project      = var.project_id
+  zone         = var.zone_id
+  allow_stopping_for_update = true
+
+  # from a instance template
+  source_instance_template = "https://www.googleapis.com/compute/v1/projects/jason-hsbc/global/instanceTemplates/vm-template-k8s-nodes"
+}
