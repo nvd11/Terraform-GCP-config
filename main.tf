@@ -1,3 +1,14 @@
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "5.21.0"
+    }
+  }
+}
+
+
+
 provider "google" {
     project = var.project_id
     region = var.region_id
@@ -45,4 +56,13 @@ module "vm" {
   vpc0_subnet1 = module.network.tf_vpc0_subnet1_name
   vpc1 = module.network.tf_vpc1_name
   vpc1_subnet0 = module.network.tf_vpc1_subnet0_name
+}
+
+module "storage_transfer_service_demo" {
+  source     = "./sts_demo"
+  project_id = var.project_id
+  region_id = var.region_id
+  zone_id = var.zone_id
+  gcs_sa = var.gcs_sa
+  sts_sa = var.sts_sa
 }
