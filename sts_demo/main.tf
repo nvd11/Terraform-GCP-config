@@ -82,6 +82,8 @@ resource "google_storage_transfer_job" "transfer-job-sts-demo" {
   transfer_spec {
 
     transfer_options {
+      overwrite_objects_already_existing_in_sink = true
+      overwrite_when = "ALWAYS"
       delete_objects_from_source_after_transfer = true 
     }
 
