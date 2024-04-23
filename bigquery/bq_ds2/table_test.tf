@@ -117,8 +117,10 @@ EOF
     type                     = "DAY"  # partitioning by Day
     field                    = "Order_Date"  # Use it as the partition field
     //expiration_ms            = 2592000000  # set the expired days to 30
-    require_partition_filter = true  # must use partition filter
+    //require_partition_filter = true  # must use partition filter
   }
+
+  require_partition_filter = true  # must use partition filter
 }
 
 resource "google_bigquery_table" "sales_details_p4" {
@@ -159,8 +161,10 @@ EOF
     type                     = "DAY"  # partitioning by Day
     field                    = "Order_Date"  # Use it as the partition field
     //expiration_ms            = 2592000000  # set the expired days to 30
-    require_partition_filter = true  # must use partition filter
+    //require_partition_filter = true  # must use partition filter
   }
+
+  require_partition_filter = true  # must use partition filter
 }
 
 resource "google_bigquery_table" "sales_details_p5" {
@@ -201,6 +205,7 @@ EOF
     type                     = "DAY"  # partitioning by Day
     field                    = "Order_Date"  # Use it as the partition field
     expiration_ms            = 2592000000  # set the expired days to 30
-    require_partition_filter = true  # must use partition filter
+    //require_partition_filter = true  # must use partition filter
   }
+  require_partition_filter = true  # must use partition filter
 }
