@@ -15,3 +15,9 @@ module "bq_ds2" {
   project_id = var.project_id
   location = var.region_id
 }
+
+module "bq_k8s" {
+  source     = "./bq_k8s"
+  project_id = var.project_id
+  location = var.region_id
+}
