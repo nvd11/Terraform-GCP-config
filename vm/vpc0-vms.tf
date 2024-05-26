@@ -45,12 +45,12 @@ resource "google_compute_instance" "tf-vpc0-subnet0-vm0" {
   zone = var.zone_id
   
   allow_stopping_for_update = true
-  machine_type = "e2-small" # 0.5-2 vCPU (1 shared core) , 2GB Mem
+  machine_type = "n2-highmem-4" # 4 CPU 32 GB MEM 25$ cost per month
   
   boot_disk {
     auto_delete = false # as there's an instance image created based on this disk
     initialize_params {
-      image = "debian-cloud/debian-11"
+      image = "debian-cloud/debian-12"
       size  = 20
     }
   }
