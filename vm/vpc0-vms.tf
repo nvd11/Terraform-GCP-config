@@ -50,7 +50,7 @@ resource "google_compute_instance" "tf-vpc0-subnet0-vm0" {
   boot_disk {
     auto_delete = false # as there's an instance image created based on this disk
     initialize_params {
-      image = "debian-cloud/debian-12"
+      image = "https://compute.googleapis.com/compute/v1/projects/jason-hsbc/global/images/debian-12-docker"
       size  = 20
     }
   }
