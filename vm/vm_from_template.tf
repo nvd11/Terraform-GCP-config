@@ -32,3 +32,13 @@ resource "google_compute_instance_from_template" "tf-vpc0-subnet1-vm1" {
   # from a instance template
   source_instance_template = google_compute_instance_template.vm-template-vpc0-subnet0-e2-small-tomcat.self_link_unique
 }
+
+# for docker server
+resource "google_compute_instance_from_template" "tf-vpc0-subnet0-vm22" {
+  name         = "tf-vpc0-subnet0-vm22"
+  project      = var.project_id
+  zone         = var.zone_id
+
+  # from a instance template
+  source_instance_template = google_compute_instance_template.vm-template-vpc0-subnet0-docker-server.self_link_unique
+}
