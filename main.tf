@@ -66,3 +66,10 @@ module "storage_transfer_service_demo" {
   gcs_sa = var.gcs_sa
   sts_sa = var.sts_sa
 }
+
+module "service_account" {
+  source     = "./service_account"
+  project_id = var.project_id
+  region_id = var.region_id
+  zone_id = var.zone_id
+}
