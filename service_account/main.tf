@@ -5,6 +5,7 @@ resource "google_service_account" "service_account_pubsub_bucket_adm" {
   project      = var.project_id
 }
 
+# define the roles for the service account
 resource "google_project_iam_binding" "service_account_pubsub_bucket_adm" {
   project = var.project_id
   role    = "roles/pubsub.admin"
