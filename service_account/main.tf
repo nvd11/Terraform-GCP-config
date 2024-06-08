@@ -23,3 +23,12 @@ resource "google_project_iam_binding" "service_account_pubsub_bucket_adm_storage
     "serviceAccount:${google_service_account.service_account_pubsub_bucket_adm.email}"
   ]
 }
+
+resource "google_project_iam_binding" "service_account_pubsub_bucket_adm_service_usage_comsumer" {
+  project = var.project_id
+  role    = "roles/serviceusage.serviceUsageConsumer"
+
+  members = [
+    "serviceAccount:${google_service_account.service_account_pubsub_bucket_adm.email}"
+  ]
+}
