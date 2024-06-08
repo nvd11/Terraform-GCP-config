@@ -74,6 +74,13 @@ resource "google_compute_instance" "tf-vpc0-subnet0-vm0" {
     instance_termination_action = "STOP"
   }
 
+  # to ignore disk changes
+  lifecycle {
+    ignore_changes = [
+      boot_disk,
+    ]
+  }
+
 }
 
 # this vm is under tf-vpc0 subnet 0, for vpc connectivity testing
