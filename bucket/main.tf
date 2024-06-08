@@ -23,6 +23,11 @@ resource "google_storage_bucket" "bucket-jason-hsbc-des" {
   location = var.region_id
 }
 
+resource "google_storage_bucket" "bucket-jason-hsbc-test" {
+  name     = "${var.project_id}-test"
+  project  = var.project_id
+  location = var.region_id
+}
 
 resource "google_storage_bucket" "bucket-cloud-build" {
   name     = "${var.project_id}_cloudbuild"
