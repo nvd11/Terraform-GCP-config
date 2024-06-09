@@ -24,6 +24,7 @@ resource "google_cloudbuild_trigger" "demo_cloud_user-gce-trigger" {
 
   substitutions = {
     _VM_HOST = "tf-vpc0-subnet0-vm0"
+    _APP_ENV = "prod"
   }
 
   filename = "cloudbuild-gce.yaml"
