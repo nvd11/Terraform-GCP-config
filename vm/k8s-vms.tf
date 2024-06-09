@@ -16,6 +16,9 @@ resource "google_compute_instance" "k8s-master" {
   network_interface {
     network =  var.vpc0
     subnetwork =  var.vpc0_subnet0
+    access_config {
+      nat_ip = ""
+    }
   }
 
   service_account {
@@ -30,6 +33,16 @@ resource "google_compute_instance" "k8s-master" {
     provisioning_model = "SPOT"
     preemptible         = true
     instance_termination_action = "STOP"
+  }
+
+
+
+  # to ignore external ip address changes
+  lifecycle {
+    ignore_changes = [
+      network_interface[0].access_config[0].nat_ip,
+      network_interface[0].access_config[0].network_tier,
+    ]
   }
 
 }
