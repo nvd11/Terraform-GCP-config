@@ -56,3 +56,25 @@ resource "google_cloudbuild_trigger" "bq-api-service-gar-trigger" {
   service_account = data.google_service_account.cloudbuild_sa.id 
 }
 
+
+# referring https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/cloudbuild_trigger
+resource "google_cloudbuild_trigger" "cloud-user-gar-trigger" {
+  name = "cloud-user-gar-trigger" # could not contains underscore
+
+  location = var.region_id
+
+  # when use github then should use trigger_template
+  github {
+    name = "demo_cloud_user"
+    owner = "nvd11"
+    push {
+      branch = "main"
+      invert_regex = false # means trigger on branch
+    }
+  }
+
+
+  filename = "cloudbuild-gar.yaml"
+  # projects/jason-hsbc/serviceAccounts/terraform@jason-hsbc.iam.gserviceaccount.com
+  service_account = data.google_service_account.cloudbuild_sa.id 
+}
