@@ -25,6 +25,7 @@ module "bigquery" {
   source     = "./bigquery"
   project_id = var.project_id
   region_id = var.region_id
+  fluentd_ingress_email = module.service_account.svc_account_fluentd_ingress_email
 }
 
 module "pubsub" {
