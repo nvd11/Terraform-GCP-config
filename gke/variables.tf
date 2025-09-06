@@ -29,7 +29,10 @@ variable "vpc0_subnet1" {
   type        = string
 }
 
-
+variable "vpc0_subnet2" {
+  description = "vpc sub network name"
+  type        = string
+}
 variable "vpc1" {
   description = "vpc network name"
   type        = string
