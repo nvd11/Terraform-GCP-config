@@ -46,7 +46,7 @@ resource "google_container_cluster" "my-cluster1" {
     master_ipv4_cidr_block = "192.168.4.96/28" #192.168.3.96 - 192.168.3.111
       # 允许从公共网络访问私有控制平面端点（仍然需要认证授权）
 
-    private_endpoint_enforcement_enabled = false
+    #private_endpoint_enforcement_enabled = false
     master_global_access_config {
       enabled = true
     }
