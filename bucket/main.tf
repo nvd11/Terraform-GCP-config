@@ -43,6 +43,14 @@ resource "google_storage_bucket_object" "bucket-cloud-build-source" {
   bucket = "${google_storage_bucket.bucket-cloud-build.name}"
 }
 
+resource "google_storage_bucket_iam_binding" "bucket-cloud-build-rw" {
+  bucket = google_storage_bucket.bucket-cloud-build.name
+  role   = "roles/storage.objectAdmin"
+  members = [
+    "serviceAccount:912156613264-compute@developer.gserviceaccount.com",
+  ]
+}
+
 output "bucket-jason-hsbc-name" {
   value = google_storage_bucket.bucket-jason-hsbc.name
 }
