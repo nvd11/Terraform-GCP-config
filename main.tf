@@ -58,7 +58,12 @@ module "vm" {
   vpc0_subnet2 = module.network.tf_vpc0_subnet2_name
   vpc1 = module.network.tf_vpc1_name
   vpc1_subnet0 = module.network.tf_vpc1_subnet0_name
- 
+  
+}
+
+module "mig" {
+  source  = "./mig"
+  zone_id = var.zone_id
 }
 
 module "storage_transfer_service_demo" {

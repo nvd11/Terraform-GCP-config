@@ -5,7 +5,7 @@ variable "cluster_name"{
 }
 
 resource "google_container_cluster" "my-cluster1" {
-  count =1 
+  count =0
   name     = var.cluster_name
   location = var.region_id
 
@@ -69,7 +69,7 @@ resource "google_container_cluster" "my-cluster1" {
   # create a node pool
   # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_node_pool
 resource "google_container_node_pool" "my-node-pool1" {
-    count =1
+    count =0
     name ="my-node-pool1"
     #│ Because google_container_cluster.my-cluster1 has "count" set, its attributes must be accessed on
   # specific instances.

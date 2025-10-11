@@ -17,9 +17,6 @@ resource "google_compute_instance" "tf-vpc0-subnet0-main-server" {
     network =  var.vpc0
     subnetwork =  var.vpc0_subnet0
 
-    access_config {
-      nat_ip = "34.39.2.90"
-    }
   }
 
   service_account {
@@ -206,4 +203,3 @@ resource "google_compute_instance" "tf-vpc0-subnet0-vpc1-subnet0-vm0" {
   can_ip_forward = true
 
 }
-
