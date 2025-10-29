@@ -6,13 +6,13 @@ data "google_service_account" "vm_common" {
 }
 
 module "my_new_mig" {
-  source                = "git@github.com:nvd11/terraform-mig.git?ref=1.0.5"
+  source                = "github.com/nvd11/terraform-mig?ref=1.0.6"
   
   name                  = "my-envoy"
   zone                  = var.zone_id
   machine_type          = "e2-medium"
   source_image          = "projects/jason-hsbc/global/images/packer-gce-envoy"
-  subnetwork            = "tf-vpc0-subnet0"
+  subnetwork            = var.vpc0_subnet0_self_link
   service_account_email = data.google_service_account.vm_common.email
   target_size           = 1
   spot                  = true

@@ -62,8 +62,9 @@ module "vm" {
 }
 
 module "mig" {
-  source  = "./mig"
-  zone_id = var.zone_id
+  source                 = "./mig"
+  zone_id                = var.zone_id
+  vpc0_subnet0_self_link = module.network.tf_vpc0_subnet0_self_link
 }
 
 module "storage_transfer_service_demo" {

@@ -188,3 +188,7 @@ output "tf_vpc0_subnet1_name" {
 output "tf_vpc0_subnet2_name" {
   value = google_compute_subnetwork.tf-vpc0-subnet2.name
 }
+
+output "tf_vpc0_subnet0_self_link" {
+  value = google_compute_subnetwork.tf-vpc0-subnet0.self_link
+}
