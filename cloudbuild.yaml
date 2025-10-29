@@ -9,7 +9,7 @@ steps:
 # This step creates an execution plan and uses the prj.tfvars file for variables.
 - name: 'hashicorp/terraform:1.8.0'
   entrypoint: 'terraform'
-  args: ['plan']
+  args: ['apply',  '-auto-approve']
 
 logsBucket: gs://jason-hsbc_cloudbuild/logs/
 options: # https://cloud.google.com/cloud-build/docs/build-config#options
