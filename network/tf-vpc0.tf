@@ -91,6 +91,23 @@ resource "google_compute_firewall" "tf-vpc0-firewall" {
   # target_tags   = [google_compute_subnetwork.tf-subnet.name] 
 }
 
+# Allow all internal traffic within the VPC, including from GKE pods and services.
+resource "google_compute_firewall" "allow_internal" {
+  name      = "allow-all-internal-traffic"
+  network   = google_compute_network.tf-vpc0.name
+  direction = "INGRESS"
+
+  allow {
+    protocol = "all"
+  }
+
+  source_ranges = [
+    "192.168.0.0/16",   # For VPC subnets
+    "192.171.16.0/20",  # For GKE Pods
+    "192.172.16.0/20"   # For GKE Services
+  ]
+}
+
 # --- 添加这条新的入站防火墙规则，允许 Master 访问节点 ---
 resource "google_compute_firewall" "allow_master_to_nodes" {
   project = var.project_id
