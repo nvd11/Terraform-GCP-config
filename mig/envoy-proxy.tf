@@ -8,7 +8,7 @@ data "google_service_account" "vm_common" {
 module "my_new_mig" {
   source                = "github.com/nvd11/terraform-mig?ref=1.0.6"
   
-  name                  = "my-envoy"
+  name                  = "my-envoy-proxy"
   zone                  = var.zone_id
   machine_type          = "e2-medium"
   source_image          = "projects/jason-hsbc/global/images/packer-gce-envoy"
