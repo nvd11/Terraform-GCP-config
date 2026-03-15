@@ -4,8 +4,9 @@ resource "google_cloudbuild_trigger" "envoy-proxy-refresh-trigger" {
 
   location = var.region_id
 
-  # when use github then should use trigger_template
-  github {
+  # To make this a manual trigger, we define a trigger_template
+  # instead of a github push configuration.
+   github {
     name = "envoy-config"
     owner = "nvd11"
     push {
@@ -18,4 +19,3 @@ resource "google_cloudbuild_trigger" "envoy-proxy-refresh-trigger" {
   # projects/jason-hsbc/serviceAccounts/terraform@jason-hsbc.iam.gserviceaccount.com
   service_account = data.google_service_account.cloudbuild_sa.id 
 }
- 

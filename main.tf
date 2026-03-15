@@ -103,3 +103,9 @@ module "gke" {
   vpc1_subnet0 = module.network.tf_vpc1_subnet0_name
   
 }
+
+module "scheduler" {
+  source     = "./scheduler"
+  project_id = var.project_id
+  region     = var.region_id
+}
