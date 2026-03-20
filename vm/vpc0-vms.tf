@@ -223,6 +223,10 @@ resource "google_compute_instance" "tf-vpc0-subnet0-openclaw" {
     network =  var.vpc0
     subnetwork =  var.vpc0_subnet0
 
+    access_config {
+      nat_ip       = "34.39.2.90"
+      network_tier = "PREMIUM"
+    }
   }
 
   service_account {
@@ -242,6 +246,7 @@ resource "google_compute_instance" "tf-vpc0-subnet0-openclaw" {
   lifecycle {
     ignore_changes = [
       boot_disk,
+      metadata["ssh-keys"],
     ]
   }
 
