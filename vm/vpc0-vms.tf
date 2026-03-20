@@ -203,3 +203,52 @@ resource "google_compute_instance" "tf-vpc0-subnet0-vpc1-subnet0-vm0" {
   can_ip_forward = true
 
 }
+
+resource "google_compute_instance" "tf-vpc0-subnet0-openclaw" {
+  name         = "tf-vpc0-subnet0-openclaw"
+  project  = var.project_id
+  zone = var.zone_id
+  
+  allow_stopping_for_update = true
+  machine_type = "n2d-standard-4" # 4cpu 16GB
+  
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-11"
+      size  = 60
+    }
+  }
+  
+  network_interface {
+    network =  var.vpc0
+    subnetwork =  var.vpc0_subnet0
+
+    access_config {
+      nat_ip       = "34.39.2.90"
+      network_tier = "PREMIUM"
+    }
+  }
+
+  service_account {
+    email  = "terraform@jason-hsbc.iam.gserviceaccount.com"
+    scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+  }
+
+  # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance#provisioning_model
+  # to reduce cost
+  scheduling { 
+    automatic_restart = false # Scheduling must have preemptible be false when AutomaticRestart is true.
+    provisioning_model = "SPOT"
+    preemptible         = true
+    instance_termination_action = "STOP"
+  }
+
+  lifecycle {
+    ignore_changes = [
+      boot_disk,
+      metadata["ssh-keys"],
+    ]
+  }
+
+  can_ip_forward = true
+}
