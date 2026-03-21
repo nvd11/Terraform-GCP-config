@@ -13,6 +13,7 @@ variable "zone_id" {
   type        = string
 }
 
+
 variable "vpc0" {
   description = "vpc network name"
   type        = string
@@ -32,8 +33,6 @@ variable "vpc0_subnet2" {
   description = "vpc sub network name"
   type        = string
 }
-
-
 variable "vpc1" {
   description = "vpc network name"
   type        = string

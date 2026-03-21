@@ -3,12 +3,12 @@ variable "project_id" {
   type        = string
 }
 
-variable "region_id" {
-  description = "The region"
+variable "location" {
+  description = "The location"
   type        = string
 }
 
 variable "fluentd_ingress_email" {
-  description = "the service account of fluentd"
+  description = "fluentd_ingress_email"
   type        = string
 }

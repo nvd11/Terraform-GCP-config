@@ -8,7 +8,7 @@ variable "region_id" {
   type        = string
 }
 
-variable "fluentd_ingress_email" {
-  description = "the service account of fluentd"
+variable "zone_id" {
+  description = "The zone"
   type        = string
 }
