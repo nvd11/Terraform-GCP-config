@@ -87,7 +87,17 @@ resource "google_cloudfunctions2_function" "autorestart_fn" {
 
   # Define how the function is built from the source code.
   build_config {
-    runtime     = "python310"          # Use the Python 3.10 runtime environment
+    # ========================================================================
+    # HOW THE PYTHON SDK & DEPENDENCIES ARE RESOLVED:
+    # 1. Terraform provisions the pure execution environment (e.g., Python 3.12).
+    # 2. Terraform DOES NOT define the specific Python SDKs to be installed.
+    # 3. Instead, when GCP unpacks the source code ZIP, its internal build engine 
+    #    automatically detects the 'requirements.txt' file located in the root.
+    # 4. It executes `pip install -r requirements.txt` before the container starts,
+    #    seamlessly installing libraries like 'google-cloud-compute'.
+    # This neatly decouples Infrastructure configuration from Application dependencies.
+    # ========================================================================
+    runtime     = "python312"          # Use the cutting-edge Python 3.12 runtime environment
     
     # ========================================================================
     # HOW GCP RESOLVES THE ENTRY POINT (Convention over Configuration):
