@@ -88,6 +88,15 @@ resource "google_cloudfunctions2_function" "autorestart_fn" {
   # Define how the function is built from the source code.
   build_config {
     runtime     = "python310"          # Use the Python 3.10 runtime environment
+    
+    # ========================================================================
+    # HOW GCP RESOLVES THE ENTRY POINT (Convention over Configuration):
+    # 1. By default, the Google Cloud Functions Python runtime explicitly 
+    #    looks for a file named exactly 'main.py' at the root of the source.
+    # 2. Once 'main.py' is loaded, the runtime reads this 'entry_point' attribute.
+    # 3. Under the hood, it performs the equivalent of: `from main import restart_vm`.
+    # As long as our core logic is in 'main.py', GCP flawlessly discovers it.
+    # ========================================================================
     entry_point = "restart_vm"         # The exact name of the Python function to execute
     
     source {
