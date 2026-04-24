@@ -109,3 +109,9 @@ module "scheduler" {
   project_id = var.project_id
   region     = var.region_id
 }
+
+module "autorestart_function" {
+  source     = "./autorestart_function"
+  project_id = var.project_id
+  region_id  = var.region_id
+}
