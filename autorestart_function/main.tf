@@ -40,6 +40,14 @@ resource "google_project_iam_member" "event_receiver" {
   member  = "serviceAccount:${google_service_account.autorestart_sa.email}"
 }
 
+# Grant the Service Account the 'Cloud Run Invoker' role.
+# Eventarc requires this permission to invoke the Gen 2 Cloud Function (which runs on Cloud Run).
+resource "google_project_iam_member" "run_invoker" {
+  project = var.project_id
+  role    = "roles/run.invoker"
+  member  = "serviceAccount:${google_service_account.autorestart_sa.email}"
+}
+
 
 # ==============================================================================
 # Cloud Storage & Source Code Packaging
@@ -149,7 +157,7 @@ resource "google_cloudfunctions2_function" "autorestart_fn" {
     # This ensures the function isn't needlessly triggered by other random Compute Engine logs.
     event_filters {
       attribute = "methodName"
-      value     = "v1.compute.instances.preempted"
+      value     = "compute.instances.preempted"
     }
   }
 }
