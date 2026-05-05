@@ -144,7 +144,7 @@ resource "google_cloudfunctions2_function" "autorestart_fn" {
   # Configure the runtime environment execution parameters for the function.
   service_config {
     max_instance_count    = 1      # Cap scaling to 1 to prevent runaway costs/concurrent executions
-    available_memory      = "1G" # Allocate enough memory to prevent OOM errors from the Google Cloud SDK
+    available_memory      = "512M" # Allocate enough memory to prevent OOM errors from the Google Cloud SDK
     timeout_seconds       = 60     # Abort the execution if it hangs for more than 60 seconds
     
     # Attach our tightly scoped, custom Service Account to this function's execution environment.
