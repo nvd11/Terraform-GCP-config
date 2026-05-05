@@ -49,6 +49,21 @@ resource "google_project_iam_member" "run_invoker" {
 }
 
 
+# Get the Google project data to access the project number dynamically
+data "google_project" "project" {
+  project_id = var.project_id
+}
+
+# Grant the GCP Pub/Sub Service Agent the required Token Creator role.
+# Eventarc relies on Pub/Sub to push events to Cloud Run (Cloud Functions Gen 2).
+# The Pub/Sub agent needs this role to create OIDC tokens acting as the trigger Service Account.
+resource "google_project_iam_member" "pubsub_token_creator" {
+  project = var.project_id
+  role    = "roles/iam.serviceAccountTokenCreator"
+  member  = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-pubsub.iam.gserviceaccount.com"
+}
+
+
 # ==============================================================================
 # Cloud Storage & Source Code Packaging
 # ==============================================================================
