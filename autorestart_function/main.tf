@@ -48,6 +48,16 @@ resource "google_project_iam_member" "run_invoker" {
   member  = "serviceAccount:${google_service_account.autorestart_sa.email}"
 }
 
+# Grant the Service Account the 'Cloud Run Invoker' role explicitly on the underlying Cloud Run service.
+# This solves the 401 Unauthorized issue where Eventarc fails to trigger the Gen 2 Cloud Function.
+resource "google_cloud_run_service_iam_member" "function_run_invoker" {
+  project  = var.project_id
+  location = var.region_id
+  service  = google_cloudfunctions2_function.autorestart_fn.name
+  role     = "roles/run.invoker"
+  member   = "serviceAccount:${google_service_account.autorestart_sa.email}"
+}
+
 
 # Get the Google project data to access the project number dynamically
 data "google_project" "project" {
@@ -153,8 +163,8 @@ resource "google_cloudfunctions2_function" "autorestart_fn" {
 
   # This block automatically creates and binds an Eventarc trigger to the Cloud Function.
   event_trigger {
-    # Audit logs are global resources, so the trigger listening to them must also be global.
-    trigger_region        = "global"
+    # Compute Engine audit logs are regional (based on the VM's region), not global.
+    trigger_region        = var.region_id
     
     # We are explicitly listening for a newly written Cloud Audit Log entry.
     event_type            = "google.cloud.audit.log.v1.written"
