@@ -48,6 +48,16 @@ resource "google_project_iam_member" "run_invoker" {
   member  = "serviceAccount:${google_service_account.autorestart_sa.email}"
 }
 
+# Grant the Service Account the 'Cloud Run Invoker' role explicitly on the underlying Cloud Run service.
+# This solves the 401 Unauthorized issue where Eventarc fails to trigger the Gen 2 Cloud Function.
+resource "google_cloud_run_service_iam_member" "function_run_invoker" {
+  project  = var.project_id
+  location = var.region_id
+  service  = google_cloudfunctions2_function.autorestart_fn.name
+  role     = "roles/run.invoker"
+  member   = "serviceAccount:${google_service_account.autorestart_sa.email}"
+}
+
 
 # Get the Google project data to access the project number dynamically
 data "google_project" "project" {
