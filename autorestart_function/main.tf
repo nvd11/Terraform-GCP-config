@@ -163,8 +163,8 @@ resource "google_cloudfunctions2_function" "autorestart_fn" {
 
   # This block automatically creates and binds an Eventarc trigger to the Cloud Function.
   event_trigger {
-    # Audit logs are global resources, so the trigger listening to them must also be global.
-    trigger_region        = "global"
+    # Compute Engine audit logs are regional (based on the VM's region), not global.
+    trigger_region        = var.region_id
     
     # We are explicitly listening for a newly written Cloud Audit Log entry.
     event_type            = "google.cloud.audit.log.v1.written"
