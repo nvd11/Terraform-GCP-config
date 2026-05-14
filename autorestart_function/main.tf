@@ -75,6 +75,38 @@ resource "google_project_iam_member" "pubsub_token_creator" {
 
 
 # ==============================================================================
+# Pub/Sub Topic & Log Router Sink for Preemption (System Events)
+# ==============================================================================
+
+# Create a dedicated Pub/Sub topic to receive the intercepted preemption system events.
+resource "google_pubsub_topic" "preemption_topic" {
+  name    = "autorestart-preemption-topic"
+  project = var.project_id
+}
+
+# Create a Log Router Sink that strictly filters for the "compute.instances.preempted" system event
+# and forwards the matched log entries to the Pub/Sub topic created above.
+resource "google_logging_project_sink" "preemption_sink" {
+  name                   = "autorestart-preemption-sink"
+  project                = var.project_id
+  destination            = "pubsub.googleapis.com/projects/${var.project_id}/topics/${google_pubsub_topic.preemption_topic.name}"
+  
+  # Strictly filter for compute.instances.preempted (System Event)
+  filter                 = "protoPayload.methodName=\"compute.instances.preempted\""
+  unique_writer_identity = true
+}
+
+# Grant the Log Router Sink's automatically generated service account the publisher role
+# on the Pub/Sub topic so it has permission to push the logs into it.
+resource "google_pubsub_topic_iam_member" "sink_publisher" {
+  project = var.project_id
+  topic   = google_pubsub_topic.preemption_topic.name
+  role    = "roles/pubsub.publisher"
+  member  = google_logging_project_sink.preemption_sink.writer_identity
+}
+
+
+# ==============================================================================
 # Cloud Storage & Source Code Packaging
 # ==============================================================================
 
@@ -162,27 +194,12 @@ resource "google_cloudfunctions2_function" "autorestart_fn" {
   }
 
   # This block automatically creates and binds an Eventarc trigger to the Cloud Function.
+  # We use the Pub/Sub topic trigger since we route the system event via Log Router.
   event_trigger {
-    # Compute Engine audit logs are regional (based on the VM's region), not global.
     trigger_region        = var.region_id
-    
-    # We are explicitly listening for a newly written Cloud Audit Log entry.
-    event_type            = "google.cloud.audit.log.v1.written"
-    
-    # Identify the Service Account that Eventarc will use to trigger the function.
+    event_type            = "google.cloud.pubsub.topic.v1.messagePublished"
+    pubsub_topic          = google_pubsub_topic.preemption_topic.id
     service_account_email = google_service_account.autorestart_sa.email
-    
-    # Filter #1: We only care about events originating from the Compute Engine API.
-    event_filters {
-      attribute = "serviceName"
-      value     = "compute.googleapis.com"
-    }
-    
-    # Filter #2: We strictly filter for the exact API method invoked when a Spot VM is preempted.
-    # This ensures the function isn't needlessly triggered by other random Compute Engine logs.
-    event_filters {
-      attribute = "methodName"
-      value     = "compute.instances.preempted"
-    }
+    retry_policy          = "RETRY_POLICY_DO_NOT_RETRY"
   }
 }
