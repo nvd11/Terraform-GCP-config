@@ -1,6 +1,8 @@
 # Import the functions_framework library, which is the official framework provided by Google Cloud
 # for writing event-driven Cloud Functions (v2). It handles the HTTP requests sent by Eventarc
 # and translates them into Python CloudEvent objects.
+import base64
+import json
 import functions_framework
 
 # Import the Google Cloud Compute Engine (GCE) API client library.
@@ -15,7 +17,7 @@ from google.cloud import compute_v1
 def restart_vm(cloud_event):
     """
     This is the core handler function. It gets triggered whenever Eventarc detects a matching 
-    Compute Engine audit log (such as a preemption event).
+    message on the Pub/Sub topic (from the Log Router Sink for preemption events).
     
     Args:
         cloud_event: An object containing all the metadata and the payload of the event.
@@ -23,7 +25,15 @@ def restart_vm(cloud_event):
     
     # Extract the core 'data' dictionary from the CloudEvent object.
     # This 'data' payload actually contains the original raw JSON log entry from Cloud Audit Logs.
-    data = cloud_event.data
+    # Check if the event data contains a Pub/Sub message
+    if "message" in cloud_event.data and "data" in cloud_event.data["message"]:
+        # The 'data' field is a base64-encoded string representing the original JSON LogEntry
+        pubsub_message = cloud_event.data["message"]["data"]
+        # Decode base64 to string, then parse the JSON string into a Python dictionary
+        data = json.loads(base64.b64decode(pubsub_message).decode('utf-8'))
+    else:
+        # Fallback just in case we receive the raw data directly
+        data = cloud_event.data
     
     # In GCP Cloud Audit Logs, all the crucial operational details are nested inside 
     # the 'protoPayload' field. We use the safe .get() method to retrieve it, 
