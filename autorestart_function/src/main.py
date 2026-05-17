@@ -23,6 +23,11 @@ def restart_vm(cloud_event):
         cloud_event: An object containing all the metadata and the payload of the event.
     """
     
+    import time
+    # Add a 15-second delay to avoid race condition with VM termination state
+    print("Sleeping for 15 seconds to allow the VM to fully transition to TERMINATED state...")
+    time.sleep(15)
+
     # Extract the core 'data' dictionary from the CloudEvent object.
     # This 'data' payload actually contains the original raw JSON log entry from Cloud Audit Logs.
     # Check if the event data contains a Pub/Sub message
